@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora de Impressão 3D</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 20px auto; padding: 20px; background: #f9f9f9; border-radius: 10px; }
+    input, label { display: block; margin-top: 10px; }
+    input { padding: 5px; width: 100%; }
+    button { margin-top: 20px; padding: 10px; background: #4CAF50; color: white; border: none; cursor: pointer; border-radius: 5px; }
+    .resultado { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+  <h2>Calculadora de Impressão 3D</h2>
+
+  <label>Peso da peça (g):</label>
+  <input type="number" id="peso" step="0.1">
+
+  <label>Preço do filamento por kg (R$):</label>
+  <input type="number" id="precoFilamento" step="0.01">
+
+  <label>Tempo de impressão (horas):</label>
+  <input type="number" id="horas" step="0.1">
+
+  <label>Consumo da impressora (watts):</label>
+  <input type="number" id="watts" step="1" value="120">
+
+  <label>Tarifa de energia (R$/kWh):</label>
+  <input type="number" id="tarifa" step="0.01" value="0.9">
+
+  <label>Preço da impressora (R$):</label>
+  <input type="number" id="precoImpressora" step="1">
+
+  <label>Vida útil da impressora (horas):</label>
+  <input type="number" id="vidaUtil" step="1" value="2000">
+
+  <label>Custo de mão de obra (R$/hora):</label>
+  <input type="number" id="maoObra" step="0.1" value="20">
+
+  <label>Margem de lucro (%):</label>
+  <input type="number" id="margem" step="1" value="50">
+
+  <button onclick="calcular()">Calcular Preço</button>
+
+  <div class="resultado" id="resultado"></div>
+
+  <script>
+    function calcular() {
+      const peso = parseFloat(document.getElementById("peso").value);
+      const precoFilamento = parseFloat(document.getElementById("precoFilamento").value);
+      const horas = parseFloat(document.getElementById("horas").value);
+      const watts = parseFloat(document.getElementById("watts").value);
+      const tarifa = parseFloat(document.getElementById("tarifa").value);
+      const precoImpressora = parseFloat(document.getElementById("precoImpressora").value);
+      const vidaUtil = parseFloat(document.getElementById("vidaUtil").value);
+      const maoObra = parseFloat(document.getElementById("maoObra").value);
+      const margem = parseFloat(document.getElementById("margem").value);
+
+      const custoMaterial = peso * (precoFilamento / 1000);
+      const custoEnergia = (watts / 1000) * horas * tarifa;
+      const custoDepreciacao = precoImpressora / vidaUtil * horas;
+      const custoMaoObra = maoObra * horas;
+
+      const custoTotal = custoMaterial + custoEnergia + custoDepreciacao + custoMaoObra;
+      const precoFinal = custoTotal * (1 + margem / 100);
+
+      document.getElementById("resultado").innerHTML = `
+        Custo do material: R$ ${custoMaterial.toFixed(2)}<br>
+        Custo de energia: R$ ${custoEnergia.toFixed(2)}<br>
+        Depreciação da impressora: R$ ${custoDepreciacao.toFixed(2)}<br>
+        Mão de obra: R$ ${custoMaoObra.toFixed(2)}<br>
+        <strong>Preço final sugerido: R$ ${precoFinal.toFixed(2)}</strong>
+      `;
+    }
+  </script>
+
+</body>
+</html>
