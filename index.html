@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculadora de Impressão 3D</title>
   <style>
     * {
@@ -90,6 +91,41 @@
       from { opacity: 0; transform: translateY(-10px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
+    /* Ajustes para telas pequenas */
+    @media (max-width: 480px) {
+      body {
+        padding: 10px;
+      }
+
+      .container {
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+
+      label {
+        font-size: 14px;
+      }
+
+      input {
+        font-size: 14px;
+        padding: 8px;
+      }
+
+      button {
+        font-size: 15px;
+        padding: 10px;
+      }
+
+      .resultado {
+        font-size: 14px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -126,7 +162,9 @@
 
     <button onclick="calcular()">Calcular Preço</button>
 
-    <div class="resultado" id="resultado">Preencha os campos e clique em "Calcular Preço".</div>
+    <div class="resultado" id="resultado">
+      Preencha os campos e clique em "Calcular Preço".
+    </div>
   </div>
 
   <script>
